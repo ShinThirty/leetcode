@@ -18,4 +18,4 @@ class Solution:
                 if r == 0:
                     res = i
 
-        return res.
+        return res
