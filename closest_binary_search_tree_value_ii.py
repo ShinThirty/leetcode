@@ -17,19 +17,55 @@ class Solution:
     @return: k values in the BST that are closest to the target
     """
     def closestKValues(self, root, target, k):
-        if not root:
-            return 0
+        sn, sp = [], []
+        cur = root
+        while cur:
+            if cur.val <= target:
+                sp.append(cur)
+                cur = cur.right
+            else:
+                sn.append(cur)
+                cur = cur.left
 
-        ans = deque()
-        s = []
-        node = root
-        while node:
-            s.append(node)
-            node = node.left
+        def nxt():
+            if sn:
+                cur = sn.pop()
+                n = cur.right
+                if n:
+                    sn.append(n)
+                    while n.left:
+                        n = n.left
+                        sn.append(n)
+                return cur.val
+            else:
+                return float('inf')
 
-        def next():
-            if not s:
-                return None
+        def pre():
+            if sp:
+                cur = sp.pop()
+                p = cur.left
+                if p:
+                    sp.append(p)
+                    while p.right:
+                        p = p.right
+                        sp.append(p)
+                return cur.val
+            else:
+                return -float('inf')
 
-            num = s[-1].val
+        length = 0
+        nv = nxt()
+        pv = pre()
+        output = []
+        while length < k:
+            dn = nv - target
+            dp = target - pv
+            if dn <= dp:
+                output.append(nv)
+                nv = nxt()
+            else:
+                output.append(pv)
+                pv = pre()
+            length += 1
 
+        return output
