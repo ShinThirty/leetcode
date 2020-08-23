@@ -1,5 +1,3 @@
-from collections import deque
-
 """
 Definition of TreeNode:
 class TreeNode:
