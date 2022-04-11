@@ -33,8 +33,13 @@ object Fraction {
 
 object Solution {
   def interchangeableRectangles(rectangles: Array[Array[Int]]): Long = {
-    rectangles.groupBy((rectangle) => Fraction(rectangle(0), rectangle(1)))
-
-    0L
+    rectangles
+      .groupMapReduce((rectangle) => Fraction(rectangle(0), rectangle(1)))(_ => 1)(_ + _)
+      .foldLeft(0L) {
+        case (acc, (f, g)) => {
+          val ll = g.toLong
+          acc + ll * (ll - 1) / 2
+        }
+      }
   }
 }
