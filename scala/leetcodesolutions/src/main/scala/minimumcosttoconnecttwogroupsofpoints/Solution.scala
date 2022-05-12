@@ -15,6 +15,7 @@ case class Config(val k: Int, val mask: Int)
 object Solution {
   def connectTwoGroups(cost: List[List[Int]]): Int = {
     val solutions = mutable.Map[Config, Int]()
+    val maxAns = cost.map(row => row.sum).sum
 
     def solve(k: Int, mask: Int): Int = {
       val config = Config(k, mask)
@@ -48,7 +49,7 @@ object Solution {
             n: Int
         ): Unit = {
           if (i < n) {
-            if ((mask & probe) != 0) {
+            if ((mask & probe) != 0 && (mask & ~probe) != 0) {
               ans =
                 Math.min(ans, accu + cost(k)(i) + solve(k - 1, mask & ~probe))
               partition(
