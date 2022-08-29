@@ -12,6 +12,29 @@ class TreeNode(
 
 object Solution {
   def insertIntoBST(root: TreeNode, v: Int): TreeNode = {
-    
+    if (root == null) {
+      new TreeNode(v, null, null)
+    } else {
+      var cur = root
+      var inserted = false
+      while (!inserted) {
+        if (v < cur.value) {
+          if (cur.left == null) {
+            cur.left = new TreeNode(v, null, null)
+            inserted = true
+          } else {
+            cur = cur.left
+          }
+        } else {
+          if (cur.right == null) {
+            cur.right = new TreeNode(v, null, null)
+            inserted = true
+          } else {
+            cur = cur.right
+          }
+        }
+      }
+      root
+    }
   }
 }
