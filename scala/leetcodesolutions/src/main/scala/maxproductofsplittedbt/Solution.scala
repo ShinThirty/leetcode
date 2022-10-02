@@ -1,0 +1,5 @@
+package maxproductofsplittedbt
+
+object Solution {
+
+}
